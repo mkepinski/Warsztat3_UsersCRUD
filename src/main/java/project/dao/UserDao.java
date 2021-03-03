@@ -11,7 +11,7 @@ public class UserDao {
     private static final String READ_USER_QUERY = "SELECT * FROM users WHERE id = ?";
     private static final String UPDATE_USER_QUERY = "UPDATE users SET username=?, email=?, password=? WHERE id = ?";
     private static final String DELETE_USER_QUERY = "DELETE FROM users WHERE id = ?";
-    private static final String FIND_ALL_QUERY = "SELECT * FROM users WHERE id > ?";
+    private static final String FIND_ALL_QUERY = "SELECT * FROM users";
 
     public User create(User user) {
         try(Connection connection = DbUtil.getConnection()) {
@@ -42,6 +42,7 @@ public class UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while(resultSet.next()) {
+                user.setId(resultSet.getInt("id"));
                 user.setUserName(resultSet.getString("username"));
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
@@ -77,14 +78,14 @@ public class UserDao {
         }
     }
 
-    public User[] findAllById(int id) {
+    public User[] findAll() {
         try(Connection connection = DbUtil.getConnection()) {
             User[] users = new User[0];
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_QUERY);
-            preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
                 User user = new User();
+                user.setId(resultSet.getInt("id"));
                 user.setUserName(resultSet.getString("username"));
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));

@@ -10,13 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/user/show")
+public class ShowUser extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath() + "/user/list");
+        UserDao userDao = new UserDao();
+        int id = Integer.parseInt(request.getParameter("id"));
+        User user = userDao.read(id);
+        request.setAttribute("user", user);
+        getServletContext().getRequestDispatcher("/users/user_details.jsp").forward(request, response);
     }
 }

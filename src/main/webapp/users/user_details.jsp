@@ -19,28 +19,21 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
+
                     <tbody>
-                    <c:forEach items="${users}" var="user">
 
                         <tr>
-
+                            <td>Id</td>
                             <td>${user.id}</td>
-                            <td>${user.userName}</td>
-                            <td>${user.email}</td>
-                            <td><a href='<c:url value="/user/delete?id=${user.id}"/>'>delete</a> <a href='<c:url value="/user/edit?id=${user.id}"/>'>edit</a> <a href='<c:url value="/user/show?id=${user.id}"/>'>show</a></td>
-
                         </tr>
-
-                    </c:forEach>
-
+                        <tr>
+                            <td>User name</td>
+                            <td>${user.userName}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>${user.email}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
